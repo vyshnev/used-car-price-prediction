@@ -61,7 +61,7 @@ __pycache__/
 .env
 venv/
 data/raw/*
-data/*
+!data/raw/*.dvc
 notebooks/*
 .dvc/
 .dvc.lock
