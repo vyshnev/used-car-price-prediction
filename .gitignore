@@ -50,3 +50,18 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+# local files
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
+.env
+venv/
+data/*
+notebooks/*
+.dvc/
+.dvc.lock
+.dvcignore

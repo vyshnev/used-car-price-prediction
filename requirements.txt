@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+streamlit
+mlflow
+dagshub
+dvc
+requests
+boto3
