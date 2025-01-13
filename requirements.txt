@@ -7,3 +7,4 @@ dagshub
 dvc
 requests
 boto3
+selenium
