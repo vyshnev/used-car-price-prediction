@@ -8,7 +8,7 @@ import numpy as np
 
 os.environ['PATH'] += r"C:\selenium drivers"
 driver = webdriver.Chrome()
-driver.get("https://www.cars24.com/buy-used-cars-delhi-ncr/?sort=bestmatch&serveWarrantyCount=true&storeCityId=1")
+driver.get("https://www.cars24.com/buy-used-car?f=bodyType%3Ain%3Aluxury%20sedan&sort=bestmatch&serveWarrantyCount=true&gaId=131078919.1687810141&listingSource=TabFilter")
 time.sleep(3)
 height = driver.execute_script("return document.body.scrollHeight")
 while True:
@@ -73,5 +73,5 @@ if __name__ == "__main__":
     df = df[["Car Name", "Distance", "Owner", "Fuel", "Location","Gear Type","Price"]]
     df["Location"] = df["Location"].fillna("Unknown")
 
-    df.to_csv("data/raw_data.csv", index=False)
-    print("Raw data saved to data/raw_data.csv")
+    df.to_csv("data/raw/cars24-used-cars-dataset.csv", index=False)
+    print("Raw data saved to data/raw/cars24-used-cars-dataset.csv")
