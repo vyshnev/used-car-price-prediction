@@ -1,20 +1,25 @@
+import sys
+import os
+import argparse
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 import numpy as np
 import unittest
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
-from dotenv import load_dotenv
 
-    
-# Load environment variables
-load_dotenv()
-mlflow_vars = ["MLFLOW_TRACKING_URI", "MLFLOW_TRACKING_USERNAME", "MLFLOW_TRACKING_PASSWORD"]
-for var in mlflow_vars:
-    if not os.getenv(var):
-        raise ValueError(f"Missing required environment variable: {var}")
-    os.environ[var] = os.getenv(var)
+# Create an argument parser
+parser = argparse.ArgumentParser()
+parser.add_argument("MLFLOW_TRACKING_URI", type=str, help="MLflow tracking URI")
+parser.add_argument("MLFLOW_TRACKING_USERNAME", type=str, help="MLflow tracking username")
+parser.add_argument("MLFLOW_TRACKING_PASSWORD", type=str, help="MLflow tracking password")
+
+# Parse the command line arguments
+args = parser.parse_args()
+
+#Set the environment variables
+os.environ["MLFLOW_TRACKING_URI"] = args.MLFLOW_TRACKING_URI
+os.environ["MLFLOW_TRACKING_USERNAME"] = args.MLFLOW_TRACKING_USERNAME
+os.environ["MLFLOW_TRACKING_PASSWORD"] = args.MLFLOW_TRACKING_PASSWORD
 
 class TestPreprocess(unittest.TestCase):
     def test_preprocess_data(self):
