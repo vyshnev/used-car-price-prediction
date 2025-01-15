@@ -87,7 +87,7 @@ To set up this project, follow these steps:
 
 ## Project Structure
 ```bash
-    used-car-price-prediction/
+used-car-price-prediction/
 ├── data/ # To hold raw data, processed data
 │ └── raw/
 │ └── cars24-used-cars-dataset.csv
