@@ -1,9 +1,12 @@
 import pandas as pd
 import numpy as np
 import unittest
-from src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
 from dotenv import load_dotenv
+
     
 # Load environment variables
 load_dotenv()
