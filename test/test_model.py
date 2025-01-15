@@ -1,11 +1,11 @@
-import sys
-import os
-import argparse
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 import numpy as np
 import unittest
-from src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
+import sys
+import os
+import argparse
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from ..src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
 
 # Create an argument parser
 parser = argparse.ArgumentParser()
@@ -25,7 +25,7 @@ class TestPreprocess(unittest.TestCase):
     def test_preprocess_data(self):
         """Test the preprocess_data function."""
         # Load data
-        df = pd.read_csv("data/raw/cars24-used-cars-dataset.csv")
+        df = pd.read_csv("../../data/raw/cars24-used-cars-dataset.csv")
 
         # Preprocess the data
         processed_df = preprocess_data(df)
@@ -43,7 +43,7 @@ class TestPreprocess(unittest.TestCase):
     def test_scale_numerical_data(self):
         """Test the scale_numerical_data function."""
         # Load data
-        df = pd.read_csv("data/raw/cars24-used-cars-dataset.csv")
+        df = pd.read_csv("../../data/raw/cars24-used-cars-dataset.csv")
 
         # Preprocess the data
         processed_df = preprocess_data(df)
