@@ -86,29 +86,29 @@ To set up this project, follow these steps:
 * See the section "Deploying the Containerized Streamlit App on AWS EC2" to deploy the application in the cloud.
 
 ## Project Structure
-    ```bash
-        used-car-price-prediction/
-    ├── data/ # To hold raw data, processed data
-    │ └── raw/
-    │ └── cars24-used-cars-dataset.csv
-    ├── notebooks/ # Jupyter notebooks for EDA, experiments
-    ├── src/ # Python source code
-    │ ├── init.py # Make src a package
-    │ ├── etl/ # ETL related files
-    │ │ └── data_scraping.py # Data loading and preprocessing
-    │ └── model/ # Model related files
-    │ └── preprocess.py # Data preprocessing
-    │ └── train_model.py # Model Training
-    ├── tests/ # Unit and integration tests
-    │ └──test_model.py # Testing code
-    ├── app/ # For Streamlit application
-    │ └── app.py # Streamlit app
-    ├── requirements.txt # Python dependencies
-    ├── dvc.yaml # DVC pipeline file (will be created later)
-    ├── .gitignore
-    ├── Dockerfile # Dockerfile for the app
-    └── README.md # Project documentation
-    ```
+```bash
+    used-car-price-prediction/
+├── data/ # To hold raw data, processed data
+│ └── raw/
+│ └── cars24-used-cars-dataset.csv
+├── notebooks/ # Jupyter notebooks for EDA, experiments
+├── src/ # Python source code
+│ ├── init.py # Make src a package
+│ ├── etl/ # ETL related files
+│ │ └── data_scraping.py # Data loading and preprocessing
+│ └── model/ # Model related files
+│ └── preprocess.py # Data preprocessing
+│ └── train_model.py # Model Training
+├── tests/ # Unit and integration tests
+│ └──test_model.py # Testing code
+├── app/ # For Streamlit application
+│ └── app.py # Streamlit app
+├── requirements.txt # Python dependencies
+├── dvc.yaml # DVC pipeline file (will be created later)
+├── .gitignore
+├── Dockerfile # Dockerfile for the app
+└── README.md # Project documentation
+```
 
 ## Contributing
 
