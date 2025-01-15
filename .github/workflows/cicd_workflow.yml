@@ -27,7 +27,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python src/model/train_model.py # Replace with your testing script
+          python src/models/train_model.py # Replace with your testing script
 
       - name: Login to Docker Hub # Optional - If you are pushing the image to docker hub
         if: github.ref == 'refs/heads/main'
