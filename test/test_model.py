@@ -13,7 +13,7 @@ class TestDataPreprocessing(unittest.TestCase):
         self.df = load_from_kaggle()
 
     def test_preprocess_data_shape(self):
-        """Test that the preprocess_data function does not alter the dataset's row count."""
+        """Test that the preprocess_data function does not alter the dataset's row count"""
         processed_df = preprocess_data(self.df)
         self.assertEqual(len(self.df), len(processed_df), "Number of rows is not maintained after preprocessing.")
 
