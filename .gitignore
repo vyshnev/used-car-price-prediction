@@ -62,8 +62,8 @@ __pycache__/
 venv/
 data/raw/*
 !data/raw/*.dvc
-notebooks/*
 .dvc/
 .dvc.lock
 .dvcignore
 data/cars24-used-cars-dataset.csv
+*.tar
