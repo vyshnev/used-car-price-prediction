@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python src/tests/test_model.py \
+          python src/test/test_model.py \
             MLFLOW_TRACKING_URI=${{ secrets.MLFLOW_TRACKING_URI }} \
             MLFLOW_TRACKING_USERNAME=${{ secrets.MLFLOW_TRACKING_USERNAME }} \
             MLFLOW_TRACKING_PASSWORD=${{ secrets.MLFLOW_TRACKING_PASSWORD }}
