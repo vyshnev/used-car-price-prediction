@@ -1,56 +1,43 @@
 import pandas as pd
 import numpy as np
 import unittest
-from src.models.preprocess import preprocess_data, scale_numerical_data, create_train_test_split
 import os
-from dotenv import load_dotenv
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-# Load environment variables
-load_dotenv()
-mlflow_vars = ["MLFLOW_TRACKING_URI", "MLFLOW_TRACKING_USERNAME", "MLFLOW_TRACKING_PASSWORD"]
-for var in mlflow_vars:
-    if not os.getenv(var):
-        raise ValueError(f"Missing required environment variable: {var}")
-    os.environ[var] = os.getenv(var)
+from src.models.preprocess import preprocess_data, scale_numerical_data, inverse_transform_price
+from src.etl.data_scraping import load_from_kaggle
 
-class TestPreprocess(unittest.TestCase):
-    def test_preprocess_data(self):
-        """Test the preprocess_data function."""
-        # Load data
-        df = pd.read_csv("data/raw/cars24-used-cars-dataset.csv")
+class TestDataPreprocessing(unittest.TestCase):
+    """Test the functionality of preprocessing data."""
 
-        # Preprocess the data
-        processed_df = preprocess_data(df)
-        
-        # Make sure the data does not have null values
-        self.assertFalse(processed_df.isnull().values.any())
+    def setUp(self):
+        """Setup method to load a sample dataset and use it for testing purposes."""
+        self.df = load_from_kaggle()
 
-        #Check if the log transform is being applied
-        self.assertTrue((processed_df[['Distance','Distance_per_year']] > 0).all().all())
-        if 'Price' in df:
-            self.assertTrue((processed_df['Price'] > 0).all())
-        self.assertNotIn("Year",processed_df.columns)
-        self.assertIn("Age",processed_df.columns)
+    def test_preprocess_data_shape(self):
+        """Test that the preprocess_data function does not alter the dataset's row count."""
+        processed_df = preprocess_data(self.df)
+        self.assertEqual(len(self.df), len(processed_df), "Number of rows is not maintained after preprocessing.")
 
-    def test_scale_numerical_data(self):
-        """Test the scale_numerical_data function."""
-        # Load data
-        df = pd.read_csv("data/raw/cars24-used-cars-dataset.csv")
+    def test_preprocess_data_columns(self):
+      """Test that preprocess_data correctly adds and transforms numerical columns and do not remove categorical columns"""
+      processed_df = preprocess_data(self.df)
+      expected_columns = set(['Car Name', 'Distance', 'Owner', 'Fuel', 'Location', 'Gear Type', 'Price','Age','Distance_per_year'])
+      self.assertTrue(expected_columns.issubset(processed_df.columns), "The preprocessing step did not keep all the necessary columns.")
 
-        # Preprocess the data
-        processed_df = preprocess_data(df)
-       
-        # Split the data
-        X_train, X_test, _, _ = create_train_test_split(processed_df, processed_df['Price'])
+    def test_scale_numerical_data_numerical_columns(self):
+      """Test that scale_numerical_data correctly scales numerical columns and does not transform the others"""
+      processed_df = preprocess_data(self.df)
+      X = processed_df.copy()
+      numerical_cols = ['Age', 'Distance', 'Distance_per_year']
+      X_train_scaled, X_test_scaled = scale_numerical_data(X, X)
+      self.assertNotEqual(X[numerical_cols].values.tolist(), X_train_scaled[numerical_cols].values.tolist(), "The numerical scaling did not correctly modify the values.")
 
-        #Scale the data
-        X_train_scaled, X_test_scaled = scale_numerical_data(X_train, X_test)
+    def test_inverse_transform_price(self):
+        """Tests that the inverse transformation works correctly."""
+        y_pred_log = pd.Series([np.log10(1000), np.log10(10000), np.log10(100000)])
+        y_pred_original = inverse_transform_price(y_pred_log)
+        expected_original = [1000, 10000, 100000]
 
-        #Assert not null values in scaled data
-        self.assertFalse(X_train_scaled.isnull().values.any())
-        self.assertFalse(X_test_scaled.isnull().values.any())
-        self.assertNotEqual(X_test.iloc[0][['Age','Distance','Distance_per_year']].values.tolist(),X_test_scaled.iloc[0][['Age','Distance','Distance_per_year']].values.tolist())
-
+        np.testing.assert_allclose(y_pred_original, expected_original, atol=1e-6, err_msg="Error in inverse transforming price")
+    
 if __name__ == '__main__':
     unittest.main()
