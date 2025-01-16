@@ -36,7 +36,7 @@ To set up this project, follow these steps:
 
 1.  **Clone the Repository:** Clone this repository to your local machine using Git:
     ```bash
-    git clone <your-repository-url>
+    git clone <https://github.com/vyshnev/used-car-price-prediction.git>
     cd used-car-price-prediction
     ```
 2.  **Create a Virtual Environment:** Create and activate a virtual environment:
@@ -53,7 +53,7 @@ To set up this project, follow these steps:
     * Set up your AWS credentials using the AWS CLI. Make sure you have the correct credentials to access your bucket, which we configured in step 3 of the project.
 5. **Configure DagsHub Credentials:**
     * Set up a DagsHub account, and configure your credentials and your tracking URI in the `.env` file in the project's root directory. Make sure that your password or personal token is configured correctly.
-6.   **Configure AWS S3 Bucket Name:** In the `.env` file, include your AWS S3 bucket name using the variable `AWS_S3_BUCKET_NAME=<your-s3-bucket-name>`.
+6.   **Configure AWS S3 Bucket Name:** In the `.env` file, include your AWS S3 bucket name using the variable `AWS_S3_BUCKET_NAME=used-car-price-prediction-vyshnev`.
 
 ## Running the Application
 
@@ -83,7 +83,7 @@ To set up this project, follow these steps:
  * This command will start the application in a container in the specified port, and it can be tested in a browser.
 
 4. **Deploy to AWS EC2**:
-* See the section "Deploying the Containerized Streamlit App on AWS EC2" to deploy the application in the cloud.
+* See the section "[Deploying the Containerized Streamlit App on AWS EC2](DEPLOYMENT.md)" to deploy the application in the cloud.
 
 ## Project Structure
 ```bash
@@ -96,15 +96,14 @@ used-car-price-prediction/
 │ ├── init.py # Make src a package
 │ ├── etl/ # ETL related files
 │ │ └── data_scraping.py # Data loading and preprocessing
-│ └── model/ # Model related files
+│ └── models/ # Model related files
 │ └── preprocess.py # Data preprocessing
 │ └── train_model.py # Model Training
-├── tests/ # Unit and integration tests
+├── test/ # Unit and integration tests
 │ └──test_model.py # Testing code
 ├── app/ # For Streamlit application
 │ └── app.py # Streamlit app
 ├── requirements.txt # Python dependencies
-├── dvc.yaml # DVC pipeline file (will be created later)
 ├── .gitignore
 ├── Dockerfile # Dockerfile for the app
 └── README.md # Project documentation
